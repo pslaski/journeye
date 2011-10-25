@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Longitude start:</b>
+  <%= @trail.longitude_start %>
+</p>
+
+<p>
+  <b>Latitude start:</b>
+  <%= @trail.latitude_start %>
+</p>
+
+<p>
+  <b>Longitude end:</b>
+  <%= @trail.longitude_end %>
+</p>
+
+<p>
+  <b>Latitude end:</b>
+  <%= @trail.latitude_end %>
+</p>
+
+<p>
+  <b>Map url:</b>
+  <%= @trail.map_url %>
+</p>
+
+<%= raw Cartographer::Header.new.to_s %>
+  <%= raw @map.to_html %>
+  <div style="width:600px;height:400px;" id="map" > [Map] </div>
+
+
+<%= link_to 'Edit', edit_trail_path(@trail) %> |
+<%= link_to 'Back', trails_path %>

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  longitude_start: MyString
+  latitude_start: MyString
+  longitude_end: MyString
+  latitude_end: MyString
+  map_url: MyText
+
+two:
+  longitude_start: MyString
+  latitude_start: MyString
+  longitude_end: MyString
+  latitude_end: MyString
+  map_url: MyText
