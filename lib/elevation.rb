@@ -1,91 +1,74 @@
 # -*- coding: utf-8 -*-
 
-
 # Zamiast Google image graph api
 # użyć biblioteki JavaScript [dygraphs](http://dygraphs.com/)
 
-require 'rubygems'
-require 'json'
-require 'net/http'
-require 'uri'
-require 'active_support/core_ext'
-require 'geo-distance'
+require 'json'                     # zbędne w Rails
+require 'active_support/core_ext'  # ditto
+require 'net/http'                 # Ruby Standard Library
+require 'geo-distance'             # dopisać gem 'geo-distance' do Gemfile
 
-require 'pp'
+# Dokumentacja:
+#
+#   http://www.ruby-doc.org/stdlib/
+#   http://rubydoc.info/gems/geo-distance/0.2.0/frames
+#
+#   albo geo_calc:
+#       http://rubydoc.info/gems/geo_calc/0.7.6/frames
 
-# zobacz https://github.com/winston/google_visualr
-# require 'google_visualr'
-
+# https://github.com/chneukirchen/styleguide/blob/master/RUBY-STYLE
 
 class Elevation
 
   ELEVATION_BASE_URL = 'http://maps.googleapis.com/maps/api/elevation/json'
 
-  attr_accessor :array, :path, :distance, :highest, :lowest
+  attr_accessor :locations, :track, :profile, :distance, :highest, :lowest, :uri
 
   def initialize(opts={})
     @options = {
-      :path => "49.2710,19.9813|49.2324,19.9817",
-      :samples => 11,
-      :sensor => false
+      # Google Earth: Kuźnice            |Kasprowy Wierch
+      :locations  => "49.269604,19.980100|49.232362,19.981650",
+      :samples    => 4,
+      :sensor     => false
     }.merge!(opts)
-    set_path_and_array
-    @highest = @array.max
-    @lowest  = @array.min
-    lon1 = @path[0]['location']['lng']
-    lat1 = @path[0]['location']['lat']
-    lon2 = @path[1]['location']['lng']
-    lat2 = @path[1]['location']['lat']
-    @distance = GeoDistance::Haversine.geo_distance(lat1,lon1,lat2,lon2).kms * (@options[:samples]-1)
-  end
+    @locations = @options.delete(:locations)
+    @options[:path] = @locations # API Google: w uri ma być 'path' a nie 'locations'
 
-  # http://www.damnhandy.com/2011/01/18/url-vs-uri-vs-urn-the-confusion-continues/
+    set_profile_and_track_and_uri
 
-  def self.elevation_chart_uri(elevation, opts={})
-    chart_base_url = 'http://chart.apis.google.com/chart'
-    #
-    # http://code.google.com/intl/pl-PL/apis/chart/image/
-    # http://code.google.com/intl/pl-PL/apis/chart/image/docs/chart_params.html
-    # http://code.google.com/intl/pl-PL/apis/chart/image/docs/post_requests.html
+    @distance = GeoDistance::Haversine.geo_distance(*two_adjacent_points_from_track).kms *
+      (@options[:samples]-1)
 
-    #width = (elevation.distance * (200/(1.5 * 2))).to_i  # 1.5 = 1500 m
-    #chs = "#{width}x#{200}"
-
-    chs = "600x200"
-
-    chart_args = {
-      :cht   => "lc",
-      :chs   => chs,
-      # optional margins
-      :chma  => "0,0,0,0|80,20", # nie działa -- dlaczego?
-      # optional args
-      :chtt  => "Title",
-      :chts  => "AA0000,12,c", # 12 == font size
-      :chxt  => 'x,y',
-      :chxr  => '1,0,500', # 0 == x-axis, 1 == y-axis
-      :chds  => "0,500",
-      :chxl  => "0:|Elevation",
-      :chxp  => "0,50", # 0 == x-axis, 50 == center
-      :chco  => "0000FF",
-      :chls  => "4", # line thickness
-      :chm   => "B,76A4FB,0,0,0" # blue fills under the line
-    }.merge!(opts)
-    chart_args[:chd] = 't:' + elevation.array.join(',')
-
-    chart_base_url+'?'+chart_args.to_query
-    #URI.escape "#{chart_base_url}?#{chart_args.to_query}"
+    @highest = @profile.max
+    @lowest  = @profile.min
   end
 
   private
 
-  def set_path_and_array
-    #url = URI.escape "#{ELEVATION_BASE_URL}?#{@options.to_query}"
-    url = ELEVATION_BASE_URL+'?'+@options.to_query
-    response = Net::HTTP.get_response(URI.parse(url))
-    @path = JSON.parse(response.body)['results']
-    @array = @path.map do |x|
+  def set_profile_and_track_and_uri
+    @uri = "#{ELEVATION_BASE_URL}?#{@options.to_query}"
+    response = Net::HTTP.get_response(URI.parse(@uri))
+
+    # if response.code == "200"
+    #   puts "This URI works: #{uri}"
+    # else
+    #   puts "TODO: wstawić jakąś trasę – po jakimś południku?"
+    # end
+
+    @track = JSON.parse(response.body)['results']
+    @profile = @track.map do |x|
       x['elevation'].to_i
     end
   end
 
+  def two_adjacent_points_from_track
+    return @track[0]['location']['lng'],
+        @track[0]['location']['lat'],
+        @track[1]['location']['lng'],
+        @track[1]['location']['lat']
+  end
+
 end
+
+
+

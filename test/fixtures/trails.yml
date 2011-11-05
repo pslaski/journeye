@@ -1,15 +1,21 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
 
 one:
-  longitude_start: MyString
-  latitude_start: MyString
-  longitude_end: MyString
-  latitude_end: MyString
-  map_url: MyText
+  name: MyString
+  locations: MyString
+  distance: 1
+  highest: 1
+  lowest: 1
+  uri: MyText
+  img_uri: MyText
+  chart_uri: MyText
 
 two:
-  longitude_start: MyString
-  latitude_start: MyString
-  longitude_end: MyString
-  latitude_end: MyString
-  map_url: MyText
+  name: MyString
+  locations: MyString
+  distance: 1
+  highest: 1
+  lowest: 1
+  uri: MyText
+  img_uri: MyText
+  chart_uri: MyText

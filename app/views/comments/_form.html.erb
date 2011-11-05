@@ -1,0 +1,5 @@
+<%= simple_form_for [@trail, @comment] do |t| %>
+  <%= t.input :author, :input_html => {:size => 40} %>
+  <%= t.input :body, :input_html => {:rows => 4, :cols => 40} %>
+  <%= t.button :submit %>
+<% end %>

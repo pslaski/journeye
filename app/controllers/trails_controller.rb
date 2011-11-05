@@ -1,33 +1,28 @@
 class TrailsController < ApplicationController
   # GET /trails
   def index
-    @trails = Trail.all
+    @trails = Trail.search(params[:search]).order("name").page(params[:page]).per(5)
+
+    respond_to do |format|
+      format.html # index.html.erb
+    end
   end
 
   # GET /trails/1
   def show
     @trail = Trail.find(params[:id])
-     @map = Cartographer::Gmap.new( 'map' )
-  @map.zoom = :bound
-  @map.icons << Cartographer::Gicon.new
+    @comment = Comment.new
 
-
-  marker1 = Cartographer::Gmarker.new(:name=> "Marker1", :marker_type => "Building",
-              :position => [@trail.latitude_start.to_f, @trail.longitude_start.to_f],
-              :info_window_url => "/url_for_info_content")
-  marker2 = Cartographer::Gmarker.new(:name=> "Marker2", :marker_type => "Building",
-              :position => [@trail.latitude_end.to_f, @trail.longitude_end.to_f],
-              :info_window_url => "/url_for_info_content")
-
-  @map.markers << marker1
-  @map.markers << marker2
+    respond_with(@trail)
   end
 
   # GET /trails/new
   def new
     @trail = Trail.new
 
-
+    respond_to do |format|
+      format.html # new.html.erb
+    end
   end
 
   # GET /trails/1/edit
@@ -39,9 +34,13 @@ class TrailsController < ApplicationController
   def create
     @trail = Trail.new(params[:trail])
 
-    @elevation = ::Elevation.new(:path => @trail.longitude_start + "," + @trail.latitude_start + "|" + @trail.longitude_end + "," + @trail.latitude_end)
-
-    @trail.map_url= Elevation.elevation_chart_uri(@elevation)
+    @elevation = ::Elevation.new(:samples => 40, :locations => "#{@trail.locations}")
+    @trail.distance = @elevation.distance
+    @trail.highest = @elevation.highest
+    @trail.lowest = @elevation.lowest
+    @trail.uri = @elevation.uri
+    @trail.chart_uri = elevation_chart_uri @elevation.profile, @elevation.distance, :chtt => "#{@trail.name}", :chxl => "0:|profil trasy", :chs => "800x375"
+    @trail.img_uri = staticmap_uri @elevation.locations, :size => "640x400"
 
     respond_to do |format|
       if @trail.save
@@ -55,6 +54,14 @@ class TrailsController < ApplicationController
   # PUT /trails/1
   def update
     @trail = Trail.find(params[:id])
+
+    @elevation = ::Elevation.new(:samples => 40, :locations => "#{params[:trail].locations}")
+    @trail.distance = @elevation.distance
+    @trail.highest = @elevation.highest
+    @trail.lowest = @elevation.lowest
+    @trail.uri = @elevation.uri
+    @trail.chart_uri = elevation_chart_uri @elevation.profile, @elevation.distance, :chtt => "#{@trail.name}", :chxl => "0:|profil trasy", :chs => "800x375"
+    @trail.img_uri = staticmap_uri @elevation.locations, :size => "640x400"
 
     respond_to do |format|
       if @trail.update_attributes(params[:trail])

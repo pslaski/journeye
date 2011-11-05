@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/plataformatec/simple_form.git
+  revision: 6c283ec3d29eb13a3b4014cc8fac25a655733786
+  specs:
+    simple_form (2.0.0.dev)
+      actionpack (~> 3.0)
+      activemodel (~> 3.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -64,6 +72,8 @@ GEM
       railties (~> 3.0)
       thor (~> 0.14)
     json (1.6.1)
+    kaminari (0.12.4)
+      rails (>= 3.0.0)
     mail (2.3.0)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -100,6 +110,7 @@ GEM
     rdoc (3.11)
       json (~> 1.4)
     require_all (1.2.0)
+    responders (0.6.4)
     sass (3.1.10)
     sass-rails (3.1.4)
       actionpack (~> 3.1.0)
@@ -132,9 +143,12 @@ DEPENDENCIES
   coffee-rails (~> 3.1.0)
   geo-distance
   jquery-rails
+  kaminari
   modernizr-rails
   rails (= 3.1.0)
+  responders
   sass-rails (~> 3.1.0)
+  simple_form!
   sqlite3
   turn
   uglifier

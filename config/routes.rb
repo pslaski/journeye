@@ -1,5 +1,7 @@
 JourneyE::Application.routes.draw do
-  resources :trails
+  resources :trails do
+		resources :comments
+	end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

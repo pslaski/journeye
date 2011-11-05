@@ -34,19 +34,46 @@
 
 <body>
 
-  <%= yield %> <!--! end of #container -->
+<div id="wrapper"><!-- #wrapper -->
+   <header><!-- header -->
+		<h1><a href="#"><%= content_for?(:title) ? yield(:title) : "JourneyE" %></a></h1>
+		<h2>Your compelling tag line goes here</h2>
+		<%=image_tag("headerimg.jpg", :size => "940x200")  %><!-- header image -->
+	</header><!-- end of header -->
+
+  <nav><!-- top nav -->
+		<div class="menu">
+           <%= navigation ['/index','Homepage'],['/new','New Trail'] %>
+		</div>
+	</nav><!-- end of top nav -->
+
+  <section id="main"><!-- #main content and sidebar area -->
+			<section id="content"><!-- #content -->
+
+        		<article>
+					<%= yield %> <!--! end of #container -->
+
+                    <%= javascript_include_tag "application" %>
+				</article>
 
 
-  <%= javascript_include_tag "application" %>
+			</section><!-- end of #content -->
 
-	
-  <!-- mathiasbynens.be/notes/async-analytics-snippet Change UA-XXXXX-X to be your site's ID -->
-  <script>
-    var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview'],['_trackPageLoadTime']];
-    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
-    g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-    s.parentNode.insertBefore(g,s)}(document,'script'));
-  </script>
+
+
+	</section><!-- end of #main content and sidebar-->
+
+		<footer>
+				<br />
+				<p>&copy; <a href="#">yoursite.com</a></p>
+				<br />
+	</footer>
+
+</div><!-- #wrapper -->
+
+
+
+
 
 </body>
 </html>

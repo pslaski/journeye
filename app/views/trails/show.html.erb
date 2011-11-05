@@ -1,34 +1,53 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Longitude start:</b>
-  <%= @trail.longitude_start %>
+  <b>Name:</b>
+  <%= @trail.name %>
 </p>
 
 <p>
-  <b>Latitude start:</b>
-  <%= @trail.latitude_start %>
+  <b>Locations:</b>
+  <%= @trail.locations %>
 </p>
 
 <p>
-  <b>Longitude end:</b>
-  <%= @trail.longitude_end %>
+  <b>Distance:</b>
+  <%= @trail.distance %>
 </p>
 
 <p>
-  <b>Latitude end:</b>
-  <%= @trail.latitude_end %>
+  <b>Highest:</b>
+  <%= @trail.highest %>
 </p>
 
 <p>
-  <b>Map url:</b>
-  <%= @trail.map_url %>
+  <b>Lowest:</b>
+  <%= @trail.lowest %>
 </p>
 
-<%= raw Cartographer::Header.new.to_s %>
-  <%= raw @map.to_html %>
-  <div style="width:600px;height:400px;" id="map" > [Map] </div>
+<p>
+  <b>Uri:</b>
+  <%= @trail.uri %>
+</p>
 
+<p>
+  <b>Img uri:</b>
+  <%=image_tag @trail.img_uri %>
+</p>
+
+<p>
+  <b>Chart uri:</b>
+  <%=image_tag @trail.chart_uri %>
+</p>
+
+<h2>Add new comment</h2>
+<%= render :partial => 'comments/form' %>
+
+
+<% if @trail.comments.any? %>
+  <h2>Comments</h2>
+    <%= render :partial => 'comments/comment', :collection => @trail.comments %>
+<% end %>
 
 <%= link_to 'Edit', edit_trail_path(@trail) %> |
 <%= link_to 'Back', trails_path %>

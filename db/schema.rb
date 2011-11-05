@@ -11,16 +11,29 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111025142822) do
+ActiveRecord::Schema.define(:version => 20111105220032) do
 
-  create_table "trails", :force => true do |t|
-    t.string   "longitude_start"
-    t.string   "latitude_start"
-    t.string   "longitude_end"
-    t.string   "latitude_end"
-    t.text     "map_url"
+  create_table "comments", :force => true do |t|
+    t.integer  "trail_id"
+    t.string   "author"
+    t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  add_index "comments", ["trail_id"], :name => "index_comments_on_trail_id"
+
+  create_table "trails", :force => true do |t|
+    t.string   "name"
+    t.integer  "highest"
+    t.integer  "lowest"
+    t.text     "uri"
+    t.text     "img_uri"
+    t.text     "chart_uri"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "locations"
+    t.float    "distance"
   end
 
 end

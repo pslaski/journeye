@@ -1,0 +1,12 @@
+<article>
+	<b><%= trail.name %></b><br/>
+    <p>
+    Współrzędne: <%= trail.locations %> <br/>
+    Długość trasy: <%='%.3f' % trail.distance %> km
+	<div>
+        <%= link_to 'Show', trail %>
+        <%= link_to 'Edit', edit_trail_path(trail) %>
+        <%= link_to 'Destroy', trail, confirm: 'Are you sure?', method: :delete %>
+	</div>
+	</p>
+</article>
