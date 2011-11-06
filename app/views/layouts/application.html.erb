@@ -36,25 +36,28 @@
 
 <div id="wrapper"><!-- #wrapper -->
    <header><!-- header -->
-		<h1><a href="#"><%= content_for?(:title) ? yield(:title) : "JourneyE" %></a></h1>
+		<h1><a href="/trails"><%= content_for?(:title) ? yield(:title) : "JourneyE" %></a></h1>
 		<h2>Your compelling tag line goes here</h2>
 		<%=image_tag("headerimg.jpg", :size => "940x200")  %><!-- header image -->
 	</header><!-- end of header -->
 
   <nav><!-- top nav -->
 		<div class="menu">
-           <%= navigation ['/index','Homepage'],['/new','New Trail'] %>
+           <ul>
+           <li><%= link_to "Trasy", trails_path %></li>
+           <li><%= link_to "Nowa trasa", new_trail_path %></li>
+           </ul>
 		</div>
 	</nav><!-- end of top nav -->
 
   <section id="main"><!-- #main content and sidebar area -->
 			<section id="content"><!-- #content -->
 
-        		<article>
+
 					<%= yield %> <!--! end of #container -->
 
                     <%= javascript_include_tag "application" %>
-				</article>
+
 
 
 			</section><!-- end of #content -->
@@ -65,7 +68,7 @@
 
 		<footer>
 				<br />
-				<p>&copy; <a href="#">yoursite.com</a></p>
+				<p>&copy; <a href="www.beachvolleyball.pl">Siatkówka plażowa bez tajemnic</a></p>
 				<br />
 	</footer>
 

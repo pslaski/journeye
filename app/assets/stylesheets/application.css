@@ -27,6 +27,24 @@
    display : none;
  }
 
+
+ div.comment{
+     display: block;
+     background-color:  #B9D17D;
+     color: black;
+ }
+
+ input[type="text"], textarea {
+  font: inherit;
+}
+
+
+div.input {
+  width: 100%;
+  margin: 5px;
+
+}
+
 /* Created by http://freehtml5templates.com */
 
 /* reset */
@@ -126,6 +144,20 @@ padding-left: 5px;
 
 /* nav */
 
+ nav.pagination {
+  display: block;
+  margin-top: 2em;
+  border-bottom: none;
+}
+nav.pagination a, nav.pagination .page.current {
+  padding: 4px;
+  text-decoration: none;
+  font-weight: bold;
+}
+nav.pagination .page.current {
+  color: red;
+}
+
 nav .menu {
 font-size: 16px;
 font-weight: bold;
@@ -190,6 +222,34 @@ margin: 14px 10px 18px 0;
 }
 
 /** ARTICLES **/
+
+article {
+
+ background-color: #B9D17D;
+ color: black;
+ text-align: center;
+ /* curved border radius */
+-moz-border-radius: 10px;
+-webkit-border-radius: 10px;
+}
+
+ article a {
+   text-decoration : underline;
+   color : black;
+ }
+
+ article a:link:after, article a:visited:after {
+ font-size: 70%;
+ }
+
+article a:link, article a:visited {
+color:black;
+}
+
+article a:hover, article a:active {
+color: #eee;
+}
+
 article img {
 border: #fff solid 1px;
 }

@@ -25,10 +25,6 @@
   <%= @trail.lowest %>
 </p>
 
-<p>
-  <b>Uri:</b>
-  <%= @trail.uri %>
-</p>
 
 <p>
   <b>Img uri:</b>
@@ -41,8 +37,8 @@
 </p>
 
 <h2>Add new comment</h2>
-<%= render :partial => 'comments/form' %>
 
+<%= render :partial => 'comments/form' %>
 
 <% if @trail.comments.any? %>
   <h2>Comments</h2>

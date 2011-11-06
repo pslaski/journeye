@@ -1,5 +1,5 @@
 <h1>Listing trails</h1>
-<div id="sidebar">
+
 
   <%= form_tag trails_path, :method => :get, :id => "trails_search" do %>
   <p>
@@ -8,7 +8,7 @@
   </p>
 <% end %>
 
-</div>
+
 <div>
 	<%= render :partial => 'trail', :collection => @trails %>
 </div>
@@ -17,4 +17,3 @@
 
 <br />
 
-<%= link_to 'New Trail', new_trail_path %>
