@@ -39,7 +39,13 @@ class TrailsController < ApplicationController
     @trail.highest = @elevation.highest
     @trail.lowest = @elevation.lowest
     @trail.uri = @elevation.uri
-    @trail.chart_uri = elevation_chart_uri @elevation.profile, @elevation.distance, :chtt => "#{@trail.name}", :chxl => "0:|profil trasy", :chs => "800x375"
+    @trail.chart_uri = elevation_chart_uri @elevation.profile,
+                                           @elevation.distance,
+                                           :chtt => "#{@trail.name}",
+                                           :chxl => "0:|profil trasy",
+                                           :chs => "800x375",
+                                           :chxr => "1,#{(@trail.lowest-100)},#{(@trail.highest+100)}",
+                                           :chds => "#{(@trail.lowest-100)},#{(@trail.highest+100)}"
     @trail.img_uri = staticmap_uri @elevation.locations, :size => "640x400"
 
     respond_to do |format|
@@ -55,12 +61,18 @@ class TrailsController < ApplicationController
   def update
     @trail = Trail.find(params[:id])
 
-    @elevation = ::Elevation.new(:samples => 40, :locations => "#{params[:trail].locations}")
+    @elevation = ::Elevation.new(:samples => 40, :locations => "#{params[:trail][:locations]}")
     @trail.distance = @elevation.distance
     @trail.highest = @elevation.highest
     @trail.lowest = @elevation.lowest
     @trail.uri = @elevation.uri
-    @trail.chart_uri = elevation_chart_uri @elevation.profile, @elevation.distance, :chtt => "#{@trail.name}", :chxl => "0:|profil trasy", :chs => "800x375"
+    @trail.chart_uri = elevation_chart_uri @elevation.profile,
+                                           @elevation.distance,
+                                           :chtt => "#{@trail.name}",
+                                           :chxl => "0:|profil trasy",
+                                           :chs => "800x375",
+                                           :chxr => "1,#{(@trail.lowest-100)},#{(@trail.highest+100)}",
+                                           :chds => "#{(@trail.lowest-100)},#{(@trail.highest+100)}"
     @trail.img_uri = staticmap_uri @elevation.locations, :size => "640x400"
 
     respond_to do |format|

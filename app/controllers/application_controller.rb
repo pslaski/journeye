@@ -75,6 +75,7 @@ class ApplicationController < ActionController::Base
       :markers => [
           "color:green|label:S|#{locs[0]}", "color:red|label:F|#{locs[1]}"
         ],
+      :path => locations,
       :sensor => false
     }.merge!(opts)
 
