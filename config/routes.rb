@@ -1,3 +1,4 @@
+
 JourneyE::Application.routes.draw do
   resources :trails do
 		resources :comments

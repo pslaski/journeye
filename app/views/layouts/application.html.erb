@@ -30,6 +30,8 @@
        Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries
        For optimal performance, use a custom Modernizr build: www.modernizr.com/download/ -->
   <%= javascript_include_tag "modernizr" %>
+  <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 </head>
 
 <body>
@@ -37,7 +39,7 @@
 <div id="wrapper"><!-- #wrapper -->
    <header><!-- header -->
 		<h1><a href="/trails"><%= content_for?(:title) ? yield(:title) : "JourneyE" %></a></h1>
-		<h2>Your compelling tag line goes here</h2>
+		<h2>Podróżować to żyć</h2>
 		<%=image_tag("headerimg.jpg", :size => "940x200")  %><!-- header image -->
 	</header><!-- end of header -->
 
@@ -68,7 +70,8 @@
 
 		<footer>
 				<br />
-				<p>&copy; <a href="www.beachvolleyball.pl">Siatkówka plażowa bez tajemnic</a></p>
+				<p> Paweł "Żubr" Śląski
+                  &copy; <a href="www.beachvolleyball.pl">Siatkówka plażowa bez tajemnic</a></p>
 				<br />
 	</footer>
 

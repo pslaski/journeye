@@ -27,12 +27,38 @@
    display : none;
  }
 
+ div.field {
+     padding: 10px;
+ }
 
  div.comment{
      display: block;
+     border: 3px solid pink;
+     -moz-border-radius: 10px;
+      margin-bottom: 5px;
+     -webkit-border-radius: 10px;
+ }
+
+ div.cbody{
+     display: block;
      background-color:  #B9D17D;
      color: black;
+     margin: 5px;
+     padding: 5px;
+     -moz-border-radius: 10px;
+     -webkit-border-radius: 10px;
+     height: auto;
  }
+
+ div.cbody div{
+     float: right;
+ }
+
+
+div.comment a:link, div.comment a:visited {
+color:black;
+}
+
 
  input[type="text"], textarea {
   font: inherit;
@@ -43,6 +69,11 @@ div.input {
   width: 100%;
   margin: 5px;
 
+}
+
+#links {
+    margin: 5px;
+    font-size: 18px;
 }
 
 /* Created by http://freehtml5templates.com */

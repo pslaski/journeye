@@ -69,6 +69,9 @@ class ApplicationController < ActionController::Base
     # locations == 49.2710,19.9813|49.2324,19.9817
     locs = locations.split("|")
 
+    #@encoder = ::GMapPolylineEncoder.new
+    #result = @encoder.encode( locs )
+
     map_args = {
       :maptype => "terrain",
       :size => "400x400",

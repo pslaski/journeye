@@ -12,15 +12,30 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label "Nazwa trasy: " %><br />
     <%= f.text_field :name %>
   </div>
-  <div class="field">
-    <%= f.label :locations %><br />
-    <%= f.text_field :locations %>
+    <div class="field">
+    <input type="hidden" name="locations" />
+
+
+      Wyszukaj punkt: <input type="text" id="address" size="15" onkeypress="return addressKeyHandler(event)"/>
+
+    Typ podróży:
+          <select id="mode" onchange="updateElevation()">
+            <option value="direct" selected="selected">Bezpośrednio</option>
+            <option value="driving">Samochodem</option>
+            <option value="bicycling">Rowerem</option>
+            <option value="walking">Pieszo</option>
+          </select>
+   </div>
+   <div id="links">
+     <input type="button" value="Wyczyść punkty" onclick="resetMarkers()" />
+
+    <input name="commit" type="submit" value="Utwórz trasę" onclick="sendData()" />
+    <!--<input name="commit" type="button" value="Create Trail" onclick="sendData(); return false;" />-->
   </div>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<div id="map_canvas" style="border: 1px solid black; width:600px; height:500px"></div>
+
 <% end %>

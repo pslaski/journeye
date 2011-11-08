@@ -33,21 +33,24 @@ class TrailsController < ApplicationController
   # POST /trails
   def create
     @trail = Trail.new(params[:trail])
+      if !params[:trail][:name].blank? && !params[:locations].blank?
 
-    @elevation = ::Elevation.new(:samples => 40, :locations => "#{@trail.locations}")
-    @trail.distance = @elevation.distance
-    @trail.highest = @elevation.highest
-    @trail.lowest = @elevation.lowest
-    @trail.uri = @elevation.uri
-    @trail.chart_uri = elevation_chart_uri @elevation.profile,
-                                           @elevation.distance,
-                                           :chtt => "#{@trail.name}",
-                                           :chxl => "0:|profil trasy",
-                                           :chs => "800x375",
-                                           :chxr => "1,#{(@trail.lowest-100)},#{(@trail.highest+100)}",
-                                           :chds => "#{(@trail.lowest-100)},#{(@trail.highest+100)}"
-    @trail.img_uri = staticmap_uri @elevation.locations, :size => "640x400"
+      @trail.locations = params[:locations].gsub(/(\),\()/, "|").gsub(/ /, "").gsub(")", "").gsub("(", "")
 
+      @elevation = ::Elevation.new(:samples => 225, :locations => "#{@trail.locations}")
+      @trail.distance = @elevation.distance
+      @trail.highest = @elevation.highest
+      @trail.lowest = @elevation.lowest
+      @trail.uri = @elevation.uri
+      @trail.chart_uri = elevation_chart_uri @elevation.profile,
+                                             @elevation.distance,
+                                             :chtt => "#{@trail.name}",
+                                             :chxl => "0:|profil trasy",
+                                             :chs => "800x375",
+                                             :chxr => "1,#{(@trail.lowest-100)},#{(@trail.highest+100)}",
+                                             :chds => "#{(@trail.lowest-100)},#{(@trail.highest+100)}"
+      @trail.img_uri = staticmap_uri @elevation.locations, :size => "640x400"
+      end
     respond_to do |format|
       if @trail.save
         format.html { redirect_to @trail, notice: 'Trail was successfully created.' }
@@ -60,8 +63,11 @@ class TrailsController < ApplicationController
   # PUT /trails/1
   def update
     @trail = Trail.find(params[:id])
+    if !params[:trail][:name].blank? && !params[:locations].blank?
 
-    @elevation = ::Elevation.new(:samples => 40, :locations => "#{params[:trail][:locations]}")
+    @trail.locations = params[:locations].gsub(/(\),\()/, "|").gsub(/ /, "").gsub(")", "").gsub("(", "")
+
+    @elevation = ::Elevation.new(:samples => 225, :locations => "#{@trail.locations}")
     @trail.distance = @elevation.distance
     @trail.highest = @elevation.highest
     @trail.lowest = @elevation.lowest
@@ -74,7 +80,7 @@ class TrailsController < ApplicationController
                                            :chxr => "1,#{(@trail.lowest-100)},#{(@trail.highest+100)}",
                                            :chds => "#{(@trail.lowest-100)},#{(@trail.highest+100)}"
     @trail.img_uri = staticmap_uri @elevation.locations, :size => "640x400"
-
+    end
     respond_to do |format|
       if @trail.update_attributes(params[:trail])
         format.html { redirect_to @trail, notice: 'Trail was successfully updated.' }

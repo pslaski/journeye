@@ -1,49 +1,49 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Name:</b>
+  <b>Nazwa:</b>
   <%= @trail.name %>
 </p>
 
 <p>
-  <b>Locations:</b>
+  <b>Współrzędne:</b>
   <%= @trail.locations %>
 </p>
 
 <p>
-  <b>Distance:</b>
-  <%= @trail.distance %>
+  <b>Długość:</b>
+  <%='%.3f' % @trail.distance %> km
 </p>
 
 <p>
-  <b>Highest:</b>
-  <%= @trail.highest %>
+  <b>Najwyższy punkt:</b>
+  <%= @trail.highest %> m
 </p>
 
 <p>
-  <b>Lowest:</b>
-  <%= @trail.lowest %>
+  <b>Najniższy punkt:</b>
+  <%= @trail.lowest %> m
 </p>
 
 
 <p>
-  <b>Img uri:</b>
   <%=image_tag @trail.img_uri %>
 </p>
 
 <p>
-  <b>Chart uri:</b>
   <%=image_tag @trail.chart_uri %>
 </p>
 
-<h2>Add new comment</h2>
+<h2>Dodaj komentarz</h2>
 
 <%= render :partial => 'comments/form' %>
 
 <% if @trail.comments.any? %>
-  <h2>Comments</h2>
+  <h2>Komentarze</h2>
     <%= render :partial => 'comments/comment', :collection => @trail.comments %>
 <% end %>
 
-<%= link_to 'Edit', edit_trail_path(@trail) %> |
-<%= link_to 'Back', trails_path %>
+<div id="links">
+<%= link_to 'Edytuj', edit_trail_path(@trail) %> |
+<%= link_to 'Wróć', trails_path %>
+</div>
