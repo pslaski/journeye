@@ -7,7 +7,9 @@
 
 <p>
   <b>Współrzędne:</b>
-  <%= @trail.locations %>
+  <% locations_array(@trail.locations).each do |i| %>
+                 <p><%= i %></p>
+                 <% end %>
 </p>
 
 <p>

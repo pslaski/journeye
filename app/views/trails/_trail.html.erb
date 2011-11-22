@@ -1,12 +1,15 @@
 <article>
-	<b><%= trail.name %></b><br/>
+	<p><b><%= trail.name %></b><br/>  </p>
     <p>
-    Współrzędne: <%= trail.locations %> <br/>
-    Długość trasy: <%='%.3f' % trail.distance %> km
-	<div>
+    <i>Współrzędne: </i></p>
+                 <% locations_array(trail.locations).each do |i| %>
+                 <p><%= i %></p>
+                 <% end %>
+    <p><i>Długość trasy: </i><%='%.3f' % trail.distance %> km  </p>
+	<p><div>
         <%= link_to 'Zobacz', trail %>
         <%= link_to 'Edytuj', edit_trail_path(trail) %>
         <%= link_to 'Usuń', trail, confirm: 'Jesteś pewien?', method: :delete %>
-	</div>
-	</p>
+	</div></p>
+
 </article>

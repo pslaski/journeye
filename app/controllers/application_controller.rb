@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   #
   # Wkleić kod metod oraz dopisać do aplication_controller.rb:
   #
-   helper_method :elevation_chart_uri, :staticmap_uri
+   helper_method :elevation_chart_uri, :staticmap_uri, :locations_array
 
   # http://www.damnhandy.com/2011/01/18/url-vs-uri-vs-urn-the-confusion-continues/
 
@@ -76,7 +76,7 @@ class ApplicationController < ActionController::Base
       :maptype => "terrain",
       :size => "400x400",
       :markers => [
-          "color:green|label:S|#{locs[0]}", "color:red|label:F|#{locs[1]}"
+          "color:green|label:S|#{locs[0]}", "color:red|label:F|#{locs[locs.size-1]}"
         ],
       :path => locations,
       :sensor => false
@@ -84,5 +84,9 @@ class ApplicationController < ActionController::Base
 
     return "#{map_base_url}?#{map_args.to_query}".gsub(/%5B%5D/, "") # remove []
 
+  end
+
+  def locations_array(locations)
+       array = locations.split("|")
   end
 end

@@ -259,14 +259,22 @@ article {
  background-color: #B9D17D;
  color: black;
  text-align: center;
+ padding-top: 5px;
  /* curved border radius */
 -moz-border-radius: 10px;
 -webkit-border-radius: 10px;
+ word-wrap: break-word;
 }
 
  article a {
    text-decoration : underline;
    color : black;
+ }
+  article b {
+   font-size: 18px;
+ }
+ article p {
+   margin-bottom: 8px;
  }
 
  article a:link:after, article a:visited:after {
