@@ -33,7 +33,7 @@ class TrailsController < ApplicationController
   # POST /trails
   def create
     @trail = Trail.new(params[:trail])
-      if !params[:trail][:name].blank? && !params[:locations].blank?
+      if !params[:trail].blank? && !params[:trail][:name].blank? && !params[:locations].blank?
 
       @trail.locations = params[:locations].gsub(/(\),\()/, "|").gsub(/ /, "").gsub(")", "").gsub("(", "")
 
@@ -63,7 +63,7 @@ class TrailsController < ApplicationController
   # PUT /trails/1
   def update
     @trail = Trail.find(params[:id])
-    if !params[:trail][:name].blank? && !params[:locations].blank?
+    if !params[:trail].blank? && params[:trail][:name].blank? && !params[:locations].blank?
 
     @trail.locations = params[:locations].gsub(/(\),\()/, "|").gsub(/ /, "").gsub(")", "").gsub("(", "")
 
